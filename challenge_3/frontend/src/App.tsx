@@ -1,12 +1,15 @@
-function App() {
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Home from './pages/home'
 
+
+function App() {
   return (
-    <>
-      <div className="container mt-5">
-        <h1 className="text-primary">Hola Bootstrap con React</h1>
-        <button className="btn btn-success">Haz clic</button>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
