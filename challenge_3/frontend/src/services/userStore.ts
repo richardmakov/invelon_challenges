@@ -3,17 +3,24 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface User {
-  id?: number;
+  id: number;
   name: string;
   email: string;
   affiliate: boolean;
   preferences: string[];
 }
 
+interface Preference {
+  id: number;
+  name: string;
+}
+
 interface UserStore {
   users: User[];
+  preferences: Preference[];
   addUser: (userData: Omit<User, 'id' | 'preferences'> & { preferences: number[] }) => Promise<void>;
   fetchUsers: () => Promise<void>;
+  fetchPreferences: () => Promise<void>;
   error: string | null;
   clearError: () => void;
 }
@@ -22,7 +29,9 @@ export const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
       users: [],
+      preferences: [],
       error: null,
+
       clearError: () => set({ error: null }),
 
       addUser: async (userData) => {
@@ -46,8 +55,8 @@ export const useUserStore = create<UserStore>()(
             users: [...state.users, newUser],
             error: null,
           }));
-        } catch (err) {
-          set({ error: err.error });
+        } catch (err: any) {
+          set({ error: err.message || 'Request failed' });
         }
       },
 
@@ -56,13 +65,23 @@ export const useUserStore = create<UserStore>()(
           const response = await fetch('http://localhost:8000/api/get_users/');
           const data = await response.json();
           set({ users: data, error: null });
-        } catch (err) {
-          set({ error: err.error });
+        } catch (err: any) {
+          set({ error: err.message || 'Failed to fetch users' });
+        }
+      },
+
+      fetchPreferences: async () => {
+        try {
+          const response = await fetch('http://localhost:8000/api/get_preferences/');
+          const data = await response.json();
+          set({ preferences: data, error: null });
+        } catch (err: any) {
+          set({ error: err.message || 'Failed to fetch preferences' });
         }
       },
     }),
     {
-      name: 'user-storage', // nombre clave en localStorage
+      name: 'user-storage',
     }
   )
 );

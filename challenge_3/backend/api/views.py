@@ -13,6 +13,11 @@ def post_user(request):
         affiliate = data['affiliate']
         preferences_ids = data['preferences']
         
+        if len(name) > 20:
+            return JsonResponse({'error': 'Name cannot be longer than 20 characters'}, status=400)
+        if len(email) > 30:
+            return JsonResponse({'error': 'Email cannot be longer than 30 characters'}, status=400)
+
         if User.objects.filter(name=name).exists():
                 return JsonResponse({'error': 'User duplicated! Name already in use'}, status=400)
         if User.objects.filter(email=email).exists():
@@ -20,7 +25,7 @@ def post_user(request):
         
         if len(preferences_ids) != len(set(preferences_ids)):
             return JsonResponse({'error': 'Duplicate preferences'}, status=400)
-        print(preferences_ids[0])
+
         has_even = any(pref_id % 2 == 0 for pref_id in preferences_ids)
         has_odd = any(pref_id % 2 != 0 for pref_id in preferences_ids)
 
@@ -49,9 +54,23 @@ def get_users(request):
         users_list = []
         for user in users:
             users_list.append({
+                'id': user.id,
                 'name': user.name,
                 'email': user.email,
                 'preferences': [pref.name for pref in user.preferences.all()],
                 'affiliate': user.affiliate
             })
         return JsonResponse(users_list, safe=False)
+    
+@csrf_exempt
+def get_preferences(request):
+    if request.method == 'GET':
+        preferences = Preference.objects.all()
+        preferences_list = [
+            {
+                'id': pref.id,
+                'name': pref.name.replace('_', ' ').capitalize(),
+            }
+            for pref in preferences
+        ]
+        return JsonResponse(preferences_list, safe=False)

@@ -1,12 +1,22 @@
-# api/apps.py
 from django.apps import AppConfig
+import sys
 
 class ApiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'api'
 
     def ready(self):
+        # Evitar correr durante migraciones
+        if 'migrate' in sys.argv or 'makemigrations' in sys.argv:
+            return
+
         from .models import Preference
-        preferences = ['water', 'coffee', 'soda', 'peach_juice', 'beer', 'wine', 'tea', 'lemonade', 'orange_juice', 'kombucha']
+
+        preferences = ['Water','Coffee','Soda','Peach Juice','Beer','Wine','Tea','Lemonade','Orange Juice','Kombucha']
+
+
         for pref in preferences:
-            Preference.objects.get_or_create(name=pref)
+            normalized_name = pref.strip().lower()
+            existing = Preference.objects.filter(name__iexact=normalized_name).first()
+            if not existing:
+                Preference.objects.create(name=normalized_name)
