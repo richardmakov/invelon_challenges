@@ -2,7 +2,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface User {
+export interface User {
   id: number;
   name: string;
   email: string;
@@ -21,6 +21,9 @@ interface UserStore {
   addUser: (userData: Omit<User, 'id' | 'preferences'> & { preferences: number[] }) => Promise<void>;
   fetchUsers: () => Promise<void>;
   fetchPreferences: () => Promise<void>;
+
+  selectedUser: User | null;
+  setSelectedUser: (user: User | null) => void;
   error: string | null;
   clearError: () => void;
 }
@@ -79,9 +82,12 @@ export const useUserStore = create<UserStore>()(
           set({ error: err.message || 'Failed to fetch preferences' });
         }
       },
+      selectedUser: null,
+      setSelectedUser: (user) => set({ selectedUser: user }),
     }),
     {
       name: 'user-storage',
     }
+
   )
 );

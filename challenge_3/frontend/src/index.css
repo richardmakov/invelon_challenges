@@ -110,3 +110,13 @@ h6 {
     color: var(--color-dark) !important;
     font-weight: 600 !important;
 }
+
+.d-1100-table-cell {
+    display: none !important;
+}
+
+@media (min-width: 1100px) {
+    .d-1100-table-cell {
+        display: table-cell !important;
+    }
+}

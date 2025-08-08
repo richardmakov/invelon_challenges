@@ -5,29 +5,27 @@ import { useUserStore } from "../services/userStore";
 const UsersTable = () => {
     const fetchUsers = useUserStore((state) => state.fetchUsers);
     const users = useUserStore((state) => state.users);
+    const setSelectedUser = useUserStore((state) => state.setSelectedUser);
 
     useEffect(() => {
         fetchUsers();
     }, [fetchUsers]);
 
     return (
-        <div
-            className="p-4 bg-light rounded shadow-sm w-100"
-            style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-        >
+        <div className="p-4 bg-light rounded shadow-sm w-100 d-flex flex-column h-100">
+
             <h3 className="mb-3">User List</h3>
 
             {users.length === 0 ? (
                 <p>No users registered.</p>
             ) : (
-                <div
-                    className="table-responsive"
-                    style={{ flex: '1 1 auto', overflowY: 'auto', maxHeight: 'calc(100svh * 2/3 - 150px)' }}
-                >
+                <div className="table-responsive flex-grow-1 overflow-auto" style={{ maxHeight: 'calc(100svh * 2/3 - 150px)' }}>
+
                     <table
-                        className="table table-hover align-middle mb-0"
-                        style={{ width: '100%', tableLayout: 'fixed' }}
+                        className="table table-hover align-middle mb-0 w-100"
+                        style={{ tableLayout: 'fixed' }}
                     >
+
                         <thead
                             className="table-dark"
                             style={{
@@ -39,10 +37,10 @@ const UsersTable = () => {
                         >
                             <tr>
                                 <th style={{ width: '5%' }}>ID</th>
-                                <th style={{ width: '25%' }}>Name</th>
+                                <th className="d-none d-md-table-cell" style={{ width: '25%' }}>Name</th>
                                 <th style={{ width: '25%' }}>Email</th>
-                                <th style={{ width: '10%' }}>Affiliate</th>
-                                <th style={{ width: '30%' }}>Preferences</th>
+                                <th className="d-1100-table-cell" style={{ width: '10%' }}>Affiliate</th>
+                                <th className="d-1100-table-cell" style={{ width: '30%' }}>Preferences</th>
                             </tr>
                         </thead>
 
@@ -53,9 +51,9 @@ const UsersTable = () => {
                                     : "bg-secondary text-white";
 
                                 return (
-                                    <tr key={user.id ?? `${user.email}-${user.name}`}>
+                                    <tr key={user.id ?? `${user.email}-${user.name}`} onClick={() => setSelectedUser(user)} style={{ cursor: 'pointer' }}>
                                         <td className={cellClass}>{user.id ?? "-"}</td>
-                                        <td className={cellClass}>{user.name}</td>
+                                        <td className={`d-none d-md-table-cell ${cellClass}`}>{user.name}</td>
                                         <td className={cellClass}>
                                             <a
                                                 href={`mailto:${user.email}?subject=${encodeURIComponent("Hello")}&body=${encodeURIComponent("I wanted to contact you")}`}
@@ -64,10 +62,10 @@ const UsersTable = () => {
                                                 {user.email}
                                             </a>
                                         </td>
-                                        <td className={cellClass}>
+                                        <td className={`d-1100-table-cell ${cellClass}`}>
                                             {user.affiliate ? "Yes" : "No"}
                                         </td>
-                                        <td className={cellClass}>
+                                        <td className={`d-1100-table-cell ${cellClass}`}>
                                             {user.preferences && user.preferences.length > 0
                                                 ? user.preferences.join(", ")
                                                 : "None"}

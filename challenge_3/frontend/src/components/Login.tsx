@@ -76,7 +76,8 @@ const LoginForm = () => {
                         className="form-control"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        required
+                        required 
+                        placeholder="Richard Makovs"
                         disabled={loading}
                     />
                 </div>
@@ -91,6 +92,7 @@ const LoginForm = () => {
                         className="form-control"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        placeholder="richardmakovs@example.com"
                         required
                         disabled={loading}
                     />
