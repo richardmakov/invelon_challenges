@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-a8=^xrjv$v8(ol7^=h988#)g1e92o9fq(85lb2ld%8gjq$j4_%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 ASGI_APPLICATION = 'config.asgi.application'
 
@@ -63,7 +63,8 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://localhost:5173",
-    "http://127.0.0.1:8000"
+    "http://127.0.0.1:8000",
+    "https://prueba.richardmakov.com/"
 ]
 
 ROOT_URLCONF = 'config.urls'

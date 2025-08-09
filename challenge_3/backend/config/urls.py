@@ -23,5 +23,4 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    path('', frontend_app_view, name='home'),  # Esta vista sirve React index.html
 ]

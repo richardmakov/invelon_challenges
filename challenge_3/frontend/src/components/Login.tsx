@@ -146,7 +146,7 @@ const LoginForm = () => {
                     </div>
                 </div>
 
-                <div className="form-check my-2 d-flex align-items-center gap-2">
+                <div className="form-check d-flex align-items-center gap-2">
                     <input
                         id="affiliate"
                         type="checkbox"
@@ -206,7 +206,7 @@ const LoginForm = () => {
                     </div>
                 </div>
 
-                <div className="d-flex justify-content-start align-items-center gap-3 mt-3">
+                <div className="d-flex justify-content-start align-items-center gap-3">
                     <button
                         type="submit"
                         className="btn btn-primary"

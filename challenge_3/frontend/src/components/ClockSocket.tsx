@@ -1,11 +1,13 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './ClockSocket.css';
 
 const ClockSocket = () => {
     const [time, setTime] = useState('--:--:--');
 
     useEffect(() => {
-        const socket = new WebSocket('ws://localhost:8000/ws/hora/');
+        const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+        const wsUrl = `${protocol}://django-challenge3-production.up.railway.app/ws/hora/`;
+        const socket = new WebSocket(wsUrl);
 
         socket.onopen = () => {
             console.log('WebSocket conectado');

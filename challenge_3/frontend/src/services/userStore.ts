@@ -1,6 +1,7 @@
 // src/store/userStore.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { API_URL } from '../utils/ApiUrl';
 
 export interface User {
   id: number;
@@ -39,7 +40,7 @@ export const useUserStore = create<UserStore>()(
 
       addUser: async (userData) => {
         try {
-          const response = await fetch('http://localhost:8000/api/post_user/', {
+          const response = await fetch(`${API_URL}/api/post_user/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -65,7 +66,7 @@ export const useUserStore = create<UserStore>()(
 
       fetchUsers: async () => {
         try {
-          const response = await fetch('http://localhost:8000/api/get_users/');
+          const response = await fetch(`${API_URL}/api/get_users/`);
           const data = await response.json();
           set({ users: data.users, error: null });
         } catch (err: any) {
@@ -75,7 +76,7 @@ export const useUserStore = create<UserStore>()(
 
       fetchPreferences: async () => {
         try {
-          const response = await fetch('http://localhost:8000/api/get_preferences/');
+          const response = await fetch(`${API_URL}/api/get_preferences/`);
           const data = await response.json();
           set({ preferences: data, error: null });
         } catch (err: any) {

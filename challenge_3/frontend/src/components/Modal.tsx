@@ -75,13 +75,13 @@ export default function Modal({ user, onClose }: ModalProps) {
                             </p>
 
                             <div>
-                                <strong>Preferences:</strong>{" "}
+                                <p><strong>Preferences:</strong>{" "}</p>
                                 {user.preferences && user.preferences.length > 0 ? (
                                     <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
                                         {user.preferences.map((pref: any) => (
                                             <img
                                                 key={pref.id ?? pref}
-                                                src={`/${pref}.jpg`}
+                                                src={`/${pref}.webp`}
                                                 alt={pref}
                                                 style={{
                                                     width: '75px',

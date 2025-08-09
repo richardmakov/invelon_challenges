@@ -3,6 +3,7 @@ import UsersTable from '../components/UsersTable'
 import Modal from '../components/Modal';
 import { useUserStore } from '../services/userStore';
 import ClockSocket from '../components/ClockSocket';
+import BlockMobileTablet from '../components/BlockMobileTablet';
 
 export default function Home() {
   const selectedUser = useUserStore((state) => state.selectedUser);
@@ -37,6 +38,7 @@ export default function Home() {
       </div>
 
       <Modal user={selectedUser} onClose={handleClose} />
+      <BlockMobileTablet />
     </>
   );
 }
