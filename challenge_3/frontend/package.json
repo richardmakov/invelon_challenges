@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+        "sync": "aws s3 sync ./dist s3://prueba.richardmakov.com/",
     "lint": "eslint .",
     "preview": "vite preview"
   },
