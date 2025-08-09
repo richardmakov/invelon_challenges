@@ -64,9 +64,10 @@ const UsersTable = () => {
                                         </td>
                                         <td className={`d-1100-table-cell ${cellClass}`}>
                                             {user.preferences && user.preferences.length > 0
-                                                ? user.preferences.map(pref => pref.name).join(", ")
+                                                ? user.preferences.join(", ")
                                                 : "None"}
                                         </td>
+
                                     </tr>
                                 );
                             })}

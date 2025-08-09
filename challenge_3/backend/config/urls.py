@@ -25,7 +25,3 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('', frontend_app_view, name='home'),  # Esta vista sirve React index.html
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

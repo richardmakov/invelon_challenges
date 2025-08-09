@@ -80,9 +80,9 @@ export default function Modal({ user, onClose }: ModalProps) {
                                     <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
                                         {user.preferences.map((pref: any) => (
                                             <img
-                                                key={pref.id ?? pref.name}
-                                                src={`/${pref.name}.jpg`}
-                                                alt={pref.name}
+                                                key={pref.id ?? pref}
+                                                src={`/${pref}.jpg`}
+                                                alt={pref}
                                                 style={{
                                                     width: '75px',
                                                     height: '75px',

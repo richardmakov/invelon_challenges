@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
+import './ClockSocket.css';
 
 const ClockSocket = () => {
     const [time, setTime] = useState('--:--:--');
@@ -21,16 +22,16 @@ const ClockSocket = () => {
             console.log('WebSocket desconectado');
         };
 
-
         return () => {
             socket.close();
         };
     }, []);
 
     return (
-        <div style={{ position: 'fixed', top: 10, left: 10, fontWeight: 'bold' }}>
+        <div className="top-0 start-0 fw-bold bg-dark text-white p-2 rounded shadow-sm websocket">
             {time}
         </div>
+
     );
 };
 

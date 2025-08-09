@@ -11,7 +11,7 @@ export default function Home() {
   const handleClose = () => setSelectedUser(null);
   return (
     <>
-    <ClockSocket />
+      
       <div
         className="container w-100 w-sm-75 d-grid justify-content-center align-items-center"
         style={{
@@ -21,8 +21,9 @@ export default function Home() {
           gap: '.5rem',
         }}
       >
-        <div className='d-flex justify-content-center align-items-start h-100'
+        <div className='d-flex justify-content-center align-items-start h-100 flex-column'
         >
+          <ClockSocket />
           <LoginForm />
         </div>
 

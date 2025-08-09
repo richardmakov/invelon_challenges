@@ -1,0 +1,11 @@
+ .websocket{
+    position: fixed;
+    margin: 1rem;
+ }
+
+@media (width < 920px){
+    .websocket{
+        position: relative !important;
+        margin: 1rem 0 !important;
+    }
+}

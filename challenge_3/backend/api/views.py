@@ -59,7 +59,7 @@ def get_users(request):
                 'preferences': [pref.name for pref in user.preferences.all()],
                 'affiliate': user.affiliate
             })
-        return JsonResponse(users_list, safe=False)
+        return JsonResponse({"users": users_list}, safe=False)
     
 @csrf_exempt
 def get_preferences(request):
@@ -67,10 +67,6 @@ def get_preferences(request):
         preferences = Preference.objects.all()
         preferences_list = []
         for pref in preferences:
-            image_url = ''
-            if pref.image:
-                image_url = request.build_absolute_uri(pref.image.url)
-            
             preferences_list.append({
                 'id': pref.id,
                 'name': pref.name.replace('_', ' ').capitalize(),

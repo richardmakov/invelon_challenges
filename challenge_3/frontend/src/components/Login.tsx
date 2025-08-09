@@ -187,7 +187,7 @@ const LoginForm = () => {
                     </label>
 
                     <div className={`prefs-container ${prefsOpen ? "open" : ""}`}>
-                        {allPreferences.map((pref) => (
+                        {allPreferences.map((pref, index) => (
                             <div key={pref.id} className="form-check form-check-inline">
                                 <input
                                     type="checkbox"
@@ -198,10 +198,11 @@ const LoginForm = () => {
                                     disabled={loading}
                                 />
                                 <label htmlFor={`pref-${pref.id}`} className="form-check-label">
-                                    {pref.name}
+                                    {index + 1}. {pref.name}
                                 </label>
                             </div>
                         ))}
+
                     </div>
                 </div>
 

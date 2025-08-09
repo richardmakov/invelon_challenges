@@ -7,7 +7,7 @@ export interface User {
   name: string;
   email: string;
   affiliate: boolean;
-  preferences: string[];
+  preferences: { name: string }[];
 }
 
 export interface Preference {
@@ -67,7 +67,7 @@ export const useUserStore = create<UserStore>()(
         try {
           const response = await fetch('http://localhost:8000/api/get_users/');
           const data = await response.json();
-          set({ users: data, error: null });
+          set({ users: data.users, error: null });
         } catch (err: any) {
           set({ error: err.message || 'Failed to fetch users' });
         }
@@ -82,12 +82,13 @@ export const useUserStore = create<UserStore>()(
           set({ error: err.message || 'Failed to fetch preferences' });
         }
       },
+
+
       selectedUser: null,
       setSelectedUser: (user) => set({ selectedUser: user }),
     }),
     {
       name: 'user-storage',
     }
-
   )
 );
