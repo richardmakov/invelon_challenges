@@ -66,11 +66,15 @@ def get_users(request):
 def get_preferences(request):
     if request.method == 'GET':
         preferences = Preference.objects.all()
-        preferences_list = [
-            {
+        preferences_list = []
+        for pref in preferences:
+            image_url = ''
+            if pref.image:
+                image_url = request.build_absolute_uri(pref.image.url)
+            
+            preferences_list.append({
                 'id': pref.id,
                 'name': pref.name.replace('_', ' ').capitalize(),
-            }
-            for pref in preferences
-        ]
+                'image': image_url,
+            })
         return JsonResponse(preferences_list, safe=False)

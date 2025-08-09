@@ -10,9 +10,10 @@ export interface User {
   preferences: string[];
 }
 
-interface Preference {
+export interface Preference {
   id: number;
   name: string;
+  image: string; 
 }
 
 interface UserStore {

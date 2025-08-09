@@ -21,7 +21,7 @@ export default function Modal({ user, onClose }: ModalProps) {
         setVisible(false);
         setTimeout(() => {
             onClose();
-        }, 300); 
+        }, 300);
     };
 
     return (
@@ -68,7 +68,25 @@ export default function Modal({ user, onClose }: ModalProps) {
                             </p>
                             <p>
                                 <strong>Preferences:</strong>{" "}
-                                {user.preferences?.length ? user.preferences.join(", ") : "None"}
+                                {user.preferences && user.preferences.length > 0 ? (
+                                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
+                                        {user.preferences.map((pref: any) => (
+                                            <img
+                                                key={pref.id}
+                                                src={pref.image}
+                                                alt={pref.name}
+                                                style={{
+                                                    width: '50px',
+                                                    height: '50px',
+                                                    objectFit: 'cover',
+                                                    borderRadius: '6px',
+                                                }}
+                                            />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    "None"
+                                )}
                             </p>
                         </div>
                         <div className="modal-footer">
