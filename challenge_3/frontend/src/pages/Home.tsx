@@ -2,6 +2,7 @@ import LoginForm from '../components/Login'
 import UsersTable from '../components/UsersTable'
 import Modal from '../components/Modal';
 import { useUserStore } from '../services/userStore';
+import ClockSocket from '../components/ClockSocket';
 
 export default function Home() {
   const selectedUser = useUserStore((state) => state.selectedUser);
@@ -10,37 +11,24 @@ export default function Home() {
   const handleClose = () => setSelectedUser(null);
   return (
     <>
+    <ClockSocket />
       <div
-        className="container w-75"
+        className="container w-100 w-sm-75 d-grid justify-content-center align-items-center"
         style={{
           height: '100svh',
-          display: 'grid',
           gridTemplateRows: '1fr 2fr',
-          justifyContent: 'center',
-          alignItems: 'center',
           padding: '2svh',
-          gap: '1rem',
+          gap: '.5rem',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            height: '100%',
-          }}
+        <div className='d-flex justify-content-center align-items-start h-100'
         >
           <LoginForm />
         </div>
 
-        <div
+        <div className='-flex justify-content-center align-items-start h-100'
           style={{
             overflowY: 'auto',
-            height: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'start',
-            width: '100%',
           }}
         >
           <UsersTable />

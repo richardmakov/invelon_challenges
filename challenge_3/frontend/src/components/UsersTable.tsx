@@ -11,11 +11,12 @@ const UsersTable = () => {
         fetchUsers();
     }, [fetchUsers]);
 
-    return (
-        <div className="p-4 bg-light rounded shadow-sm w-100 d-flex flex-column h-100">
 
-            <h3 className="mb-3">User List</h3>
-            <p style={{ fontStyle: "italic" }}>* Click on a user to view details</p>
+    return (
+        <div className="p-3 p-sm-4 bg-light rounded shadow-sm w-100 d-flex flex-column h-100 gap-1">
+
+            <h3 className="mb-0">User List</h3>
+            <p style={{ fontStyle: "italic", }} className="mb-0">* Click on a user to view details</p>
 
             {users.length === 0 ? (
                 <p>No users registered.</p>

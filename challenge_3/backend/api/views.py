@@ -1,4 +1,3 @@
-# api/views.py
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -44,7 +43,7 @@ def post_user(request):
             'name': user.name,
             'email': user.email,
             'affiliate': user.affiliate,
-            'preferences': [pref.name for pref in preferences]
+            'preferences': [pref.name for pref in user.preferences.all()]
         }, status=201)
 
 @csrf_exempt
@@ -57,13 +56,7 @@ def get_users(request):
                 'id': user.id,
                 'name': user.name,
                 'email': user.email,
-                'preferences': [
-                    {
-                        'name': pref.name,
-                        'image': pref.image.url if pref.image else None
-                    }
-                    for pref in user.preferences.all()
-                ],
+                'preferences': [pref.name for pref in user.preferences.all()],
                 'affiliate': user.affiliate
             })
         return JsonResponse(users_list, safe=False)
@@ -81,6 +74,5 @@ def get_preferences(request):
             preferences_list.append({
                 'id': pref.id,
                 'name': pref.name.replace('_', ' ').capitalize(),
-                'image': image_url,
             })
         return JsonResponse(preferences_list, safe=False)

@@ -7,13 +7,12 @@ export interface User {
   name: string;
   email: string;
   affiliate: boolean;
-  preferences: Preference[];
+  preferences: string[];
 }
 
 export interface Preference {
   id: number;
   name: string;
-  image: string; 
 }
 
 interface UserStore {

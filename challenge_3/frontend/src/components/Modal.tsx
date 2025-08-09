@@ -68,8 +68,12 @@ export default function Modal({ user, onClose }: ModalProps) {
                                 </a>
                             </p>
                             <p>
-                                <strong>Affiliate:</strong> {user.affiliate ? "Yes" : "No"}
+                                <strong>Affiliate:</strong>{" "}
+                                <span className={`badge ${user.affiliate ? "bg-success" : "bg-secondary"}`}>
+                                    {user.affiliate ? "Yes" : "No"}
+                                </span>
                             </p>
+
                             <div>
                                 <strong>Preferences:</strong>{" "}
                                 {user.preferences && user.preferences.length > 0 ? (
@@ -77,11 +81,11 @@ export default function Modal({ user, onClose }: ModalProps) {
                                         {user.preferences.map((pref: any) => (
                                             <img
                                                 key={pref.id ?? pref.name}
-                                                src={"http://127.0.0.1:8000/" + pref.image}
+                                                src={`/${pref.name}.jpg`}
                                                 alt={pref.name}
                                                 style={{
-                                                    width: '100px',
-                                                    height: '100px',
+                                                    width: '75px',
+                                                    height: '75px',
                                                     objectFit: 'cover',
                                                     borderRadius: '6px',
                                                 }}
@@ -91,6 +95,7 @@ export default function Modal({ user, onClose }: ModalProps) {
                                 ) : (
                                     "None"
                                 )}
+
                             </div>
                         </div>
                         <div className="modal-footer">

@@ -1,0 +1,38 @@
+.prefs-toggle-label {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.prefs-container {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.prefs-container.open {
+    max-height: 500px;
+    opacity: 1;
+}
+
+@media (min-width: 768px) {
+    .prefs-container {
+        max-height: none !important;
+        opacity: 1 !important;
+        overflow: visible !important;
+        transition: none !important;
+    }
+
+    .prefs-toggle-label {
+        pointer-events: none;
+        cursor: default;
+        user-select: none;
+    }
+
+    .prefs-toggle-label .arrow {
+        display: none;
+    }
+}

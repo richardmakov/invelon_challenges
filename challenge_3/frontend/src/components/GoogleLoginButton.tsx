@@ -28,10 +28,10 @@ const GoogleLoginButton: React.FC<GoogleLoginButtonProps> = ({ onSuccess, onErro
 
             window.google.accounts.id.renderButton(divRef.current, {
                 theme: "outline",
-                size: "large",
+                size: "medium",
             });
         }
-    }, [onSuccess, onError]);
+    }, []);
 
     return <div ref={divRef}></div>;
 };
