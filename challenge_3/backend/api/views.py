@@ -57,7 +57,13 @@ def get_users(request):
                 'id': user.id,
                 'name': user.name,
                 'email': user.email,
-                'preferences': [pref.name for pref in user.preferences.all()],
+                'preferences': [
+                    {
+                        'name': pref.name,
+                        'image': pref.image.url if pref.image else None
+                    }
+                    for pref in user.preferences.all()
+                ],
                 'affiliate': user.affiliate
             })
         return JsonResponse(users_list, safe=False)

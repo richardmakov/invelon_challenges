@@ -7,7 +7,7 @@ export interface User {
   name: string;
   email: string;
   affiliate: boolean;
-  preferences: string[];
+  preferences: Preference[];
 }
 
 export interface Preference {

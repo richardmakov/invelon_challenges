@@ -15,6 +15,7 @@ const UsersTable = () => {
         <div className="p-4 bg-light rounded shadow-sm w-100 d-flex flex-column h-100">
 
             <h3 className="mb-3">User List</h3>
+            <p style={{ fontStyle: "italic" }}>* Click on a user to view details</p>
 
             {users.length === 0 ? (
                 <p>No users registered.</p>
@@ -55,19 +56,14 @@ const UsersTable = () => {
                                         <td className={cellClass}>{user.id ?? "-"}</td>
                                         <td className={`d-none d-md-table-cell ${cellClass}`}>{user.name}</td>
                                         <td className={cellClass}>
-                                            <a
-                                                href={`mailto:${user.email}?subject=${encodeURIComponent("Hello")}&body=${encodeURIComponent("I wanted to contact you")}`}
-                                                className="text-white text-decoration-underline"
-                                            >
-                                                {user.email}
-                                            </a>
+                                            {user.email}
                                         </td>
                                         <td className={`d-1100-table-cell ${cellClass}`}>
                                             {user.affiliate ? "Yes" : "No"}
                                         </td>
                                         <td className={`d-1100-table-cell ${cellClass}`}>
                                             {user.preferences && user.preferences.length > 0
-                                                ? user.preferences.join(", ")
+                                                ? user.preferences.map(pref => pref.name).join(", ")
                                                 : "None"}
                                         </td>
                                     </tr>

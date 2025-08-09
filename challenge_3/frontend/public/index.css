@@ -82,6 +82,10 @@ a:hover {
     text-decoration: none;
 }
 
+span {
+    color: var(--color-dark) !important;
+}
+
 td {
     color: var(--color-light) !important;
 }

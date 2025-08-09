@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useUserStore } from "../services/userStore";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 const LoginForm = () => {
     const addUser = useUserStore((state) => state.addUser);
@@ -8,11 +9,13 @@ const LoginForm = () => {
     const fetchPreferences = useUserStore((state) => state.fetchPreferences);
     const allPreferences = useUserStore((state) => state.preferences);
 
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [affiliate, setAffiliate] = useState(false);
     const [preferences, setPreferences] = useState<number[]>([]);
     const [loading, setLoading] = useState(false);
+
+    const [googleUser, setGoogleUser] = useState<{ name: string, email: string } | null>(null);
 
     const loadPreferences = useCallback(() => {
         fetchPreferences();
@@ -21,6 +24,22 @@ const LoginForm = () => {
     useEffect(() => {
         loadPreferences();
     }, [loadPreferences]);
+
+    function parseJwt(token: string) {
+        try {
+            const base64Url = token.split(".")[1];
+            const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+            const jsonPayload = decodeURIComponent(
+                atob(base64)
+                    .split("")
+                    .map((c) => `%${("00" + c.charCodeAt(0).toString(16)).slice(-2)}`)
+                    .join("")
+            );
+            return JSON.parse(jsonPayload);
+        } catch {
+            return null;
+        }
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -34,10 +53,11 @@ const LoginForm = () => {
                 affiliate,
                 preferences,
             });
-            setName('');
-            setEmail('');
+            setName("");
+            setEmail("");
             setAffiliate(false);
             setPreferences([]);
+            setGoogleUser(null);
         } finally {
             setLoading(false);
         }
@@ -49,6 +69,26 @@ const LoginForm = () => {
         );
     };
 
+    const handleGoogleSuccess = async (credential: string) => {
+        const userData = parseJwt(credential);
+        if (!userData) {
+            console.error("Token is invalid!");
+            return;
+        }
+
+        console.log("Google User Data:", userData);
+
+        clearError();
+
+        setName(userData.name || "");
+        setEmail(userData.email || "");
+
+        setGoogleUser({
+            name: userData.name || "",
+            email: userData.email || "",
+        });
+    };
+
     return (
         <form onSubmit={handleSubmit} className="p-4 bg-light rounded shadow-sm w-100">
             <h3 className="mb-3">Create User</h3>
@@ -56,12 +96,7 @@ const LoginForm = () => {
             {error && (
                 <div className="alert alert-danger alert-dismissible fade show" role="alert">
                     {error}
-                    <button
-                        type="button"
-                        className="btn-close"
-                        aria-label="Close"
-                        onClick={clearError}
-                    ></button>
+                    <button type="button" className="btn-close" aria-label="Close" onClick={clearError}></button>
                 </div>
             )}
 
@@ -76,9 +111,10 @@ const LoginForm = () => {
                         className="form-control"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        required 
+                        required
                         placeholder="Richard Makovs"
-                        disabled={loading}
+                        disabled={loading || !!googleUser}
+                        readOnly={!!googleUser} 
                     />
                 </div>
 
@@ -94,11 +130,11 @@ const LoginForm = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="richardmakovs@example.com"
                         required
-                        disabled={loading}
+                        disabled={loading || !!googleUser}
+                        readOnly={!!googleUser}
                     />
                 </div>
             </div>
-
 
             <div className="mb-3 form-check">
                 <input
@@ -135,10 +171,25 @@ const LoginForm = () => {
                 </div>
             </div>
 
-            <button type="submit" className="btn btn-primary" disabled={loading}>
-                {loading ? 'Creating...' : 'Create User'}
-            </button>
-        </form >
+            <div className="d-flex justify-content-start align-items-center gap-3">
+                <button type="submit" className="btn btn-primary" disabled={loading}>
+                    {loading ? "Creating..." : "Create User"}
+                </button>
+
+                {!googleUser && (
+                    <GoogleLoginButton
+                        onSuccess={(credential) => handleGoogleSuccess(credential)}
+                        onError={(error) => console.error(error)}
+                    />
+                )}
+
+                {googleUser && (
+                    <span className="text-dark">
+                        Logged in with Google as <b>{googleUser.name}</b>
+                    </span>
+                )}
+            </div>
+        </form>
     );
 };
 

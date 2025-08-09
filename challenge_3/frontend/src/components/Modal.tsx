@@ -61,23 +61,27 @@ export default function Modal({ user, onClose }: ModalProps) {
                                 <strong>Name:</strong> {user.name}
                             </p>
                             <p>
-                                <strong>Email:</strong> {user.email}
+                                <strong>Email: </strong><a
+                                    href={`mailto:${user.email}?subject=${encodeURIComponent("Hello")}&body=${encodeURIComponent("I wanted to contact you")}`}
+                                    className=" text-decoration-underline"
+                                >{user.email}
+                                </a>
                             </p>
                             <p>
                                 <strong>Affiliate:</strong> {user.affiliate ? "Yes" : "No"}
                             </p>
-                            <p>
+                            <div>
                                 <strong>Preferences:</strong>{" "}
                                 {user.preferences && user.preferences.length > 0 ? (
                                     <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
                                         {user.preferences.map((pref: any) => (
                                             <img
-                                                key={pref.id}
-                                                src={pref.image}
+                                                key={pref.id ?? pref.name}
+                                                src={"http://127.0.0.1:8000/" + pref.image}
                                                 alt={pref.name}
                                                 style={{
-                                                    width: '50px',
-                                                    height: '50px',
+                                                    width: '100px',
+                                                    height: '100px',
                                                     objectFit: 'cover',
                                                     borderRadius: '6px',
                                                 }}
@@ -87,7 +91,7 @@ export default function Modal({ user, onClose }: ModalProps) {
                                 ) : (
                                     "None"
                                 )}
-                            </p>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button
