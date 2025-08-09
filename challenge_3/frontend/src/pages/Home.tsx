@@ -1,6 +1,5 @@
-import React from 'react'
-import LoginForm from '../components/login'
-import UsersTable from '../components/usersTable'
+import LoginForm from '../components/Login'
+import UsersTable from '../components/UsersTable'
 import Modal from '../components/Modal';
 import { useUserStore } from '../services/userStore';
 
