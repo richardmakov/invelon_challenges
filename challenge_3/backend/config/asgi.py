@@ -15,8 +15,10 @@ import api.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
+# Get the standard Django ASGI application for handling HTTP requests
 django_asgi_app = get_asgi_application()
 
+# Define the ASGI application with support for both HTTP and WebSocket protocols
 application = ProtocolTypeRouter({
     "http": django_asgi_app,
     "websocket": AuthMiddlewareStack(

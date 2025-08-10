@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+# Allow CORS
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://localhost:5173",
@@ -91,6 +92,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Connect Database
 DATABASES = {
     'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
 }
