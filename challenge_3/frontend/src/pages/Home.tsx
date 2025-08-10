@@ -12,9 +12,8 @@ export default function Home() {
   const handleClose = () => setSelectedUser(null);
   return (
     <>
-      
       <div
-        className="container w-100 w-sm-75 d-grid justify-content-center align-items-center"
+        className="container w-100 w-sm-75 d-grid justify-content-center align-items-center overflow-hidden"
         style={{
           height: '100svh',
           gridTemplateRows: '1fr 2fr',
@@ -35,9 +34,9 @@ export default function Home() {
         >
           <UsersTable />
         </div>
+        <Modal user={selectedUser} onClose={handleClose} />
       </div>
 
-      <Modal user={selectedUser} onClose={handleClose} />
       <BlockMobileTablet />
     </>
   );

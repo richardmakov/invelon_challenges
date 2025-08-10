@@ -52,11 +52,12 @@ def get_users(request):
         users = User.objects.all()
         users_list = []
         for user in users:
+            prefs = sorted([pref.name for pref in user.preferences.all()])
             users_list.append({
                 'id': user.id,
                 'name': user.name,
                 'email': user.email,
-                'preferences': [pref.name for pref in user.preferences.all()],
+                'preferences': prefs,
                 'affiliate': user.affiliate
             })
         return JsonResponse({"users": users_list}, safe=False)

@@ -101,7 +101,7 @@ export default function Modal({ user, onClose }: ModalProps) {
                         <div className="modal-footer">
                             <button
                                 type="button"
-                                className="btn btn-secondary"
+                                className="btn btn-danger"
                                 onClick={handleClose}
                             >
                                 Close

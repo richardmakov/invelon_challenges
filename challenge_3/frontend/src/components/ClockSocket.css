@@ -6,6 +6,7 @@
 @media (width < 920px){
     .websocket{
         position: relative !important;
-        margin: 1rem 0 !important;
+        margin: 0 !important;
+        margin-bottom: .5rem !important;
     }
 }

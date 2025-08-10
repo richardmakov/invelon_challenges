@@ -96,7 +96,7 @@ const LoginForm = () => {
                 onSubmit={handleSubmit}
                 className="p-3 p-sm-4 bg-light rounded shadow-sm w-100 gap-2 d-flex flex-column justify-content-center gap-1"
             >
-                <h3 className="mb-0">User Form</h3>
+                <h3 className="mb-0 d-none d-sm-block">User Form</h3>
 
                 {error && (
                     <div className="alert alert-danger alert-dismissible fade show" role="alert">

@@ -112,15 +112,21 @@ h6 {
     font-weight: 600 !important;
 }
 
+.d-1100-table-cell {
+    display: none !important;
+}
+
+.block-visible-desktop-mobile-portrait {
+    display: none !important;
+}
+
 @media (max-width: 600px) {
     h3 {
         font-size: 1.25rem !important;
     }
 }
 
-.d-1100-table-cell {
-    display: none !important;
-}
+
 
 @media (min-width: 1100px) {
     .d-1100-table-cell {
@@ -128,19 +134,14 @@ h6 {
     }
 }
 
-.block-visible-desktop-mobile-portrait {
-    display: none !important;
-}
-
-@media (max-width: 1200px) and (orientation: landscape) {
+@media (max-width: 940px) and (orientation: landscape) {
     .block-visible-desktop-mobile-portrait {
         display: block !important;
         height: 100svh;
         width: 100%;
         background-color: var(--bs-dark);
-        z-index: 1000;
+        z-index: 99999999;
         position: absolute;
         top: 0;
-
     }
 }
