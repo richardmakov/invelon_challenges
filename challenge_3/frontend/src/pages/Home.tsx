@@ -6,9 +6,12 @@ import ClockSocket from '../components/ClockSocket';
 import BlockMobileTablet from '../components/BlockMobileTablet';
 
 export default function Home() {
+  // Get the currently selected user from the store
   const selectedUser = useUserStore((state) => state.selectedUser);
+  // Get the function to clear or set the selected user in the store
   const setSelectedUser = useUserStore((state) => state.setSelectedUser);
 
+  // Handler to close the modal or clear the selected user
   const handleClose = () => setSelectedUser(null);
   return (
     <>
@@ -27,7 +30,7 @@ export default function Home() {
           <LoginForm />
         </div>
 
-        <div className='-flex justify-content-center align-items-start h-100'
+        <div className='d-flex justify-content-center align-items-start h-100'
           style={{
             overflowY: 'auto',
           }}

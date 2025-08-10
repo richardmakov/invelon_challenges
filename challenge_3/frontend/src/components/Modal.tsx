@@ -9,14 +9,17 @@ interface ModalProps {
 export default function Modal({ user, onClose }: ModalProps) {
     const [visible, setVisible] = useState(false);
 
+    // When `user` changes and is not null, show the modal
     useEffect(() => {
         if (user) {
             setVisible(true);
         }
     }, [user]);
 
+    // Don't render anything if no user is provided
     if (!user) return null;
 
+    // Handle close button click
     const handleClose = () => {
         setVisible(false);
         setTimeout(() => {

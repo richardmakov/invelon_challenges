@@ -4,12 +4,14 @@ import GoogleLoginButton from "./GoogleLoginButton";
 import "./Login.css";
 
 const LoginForm = () => {
+    // Zustand store hooks to manage user state, errors, preferences, and actions
     const addUser = useUserStore((state) => state.addUser);
     const error = useUserStore((state) => state.error);
     const clearError = useUserStore((state) => state.clearError);
     const fetchPreferences = useUserStore((state) => state.fetchPreferences);
     const allPreferences = useUserStore((state) => state.preferences);
 
+    // Local state to handle form inputs and UI states
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [affiliate, setAffiliate] = useState(false);
@@ -17,8 +19,10 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false);
     const [googleUser, setGoogleUser] = useState<{ name: string; email: string } | null>(null);
 
+     // State to control whether the preferences selection UI is open
     const [prefsOpen, setPrefsOpen] = useState(false);
 
+    // Fetch preferences from the API/store when component mounts or fetchPreferences function changes
     const loadPreferences = useCallback(() => {
         fetchPreferences();
     }, [fetchPreferences]);
@@ -27,6 +31,7 @@ const LoginForm = () => {
         loadPreferences();
     }, [loadPreferences]);
 
+    // Utility function to parse JWT token payload (Google credential)
     const parseJwt = (token: string) => {
         try {
             const base64Url = token.split(".")[1];
@@ -43,6 +48,7 @@ const LoginForm = () => {
         }
     }
 
+    // Handle form submission: add user, reset form and UI states, manage loading & errors
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         clearError();
@@ -66,12 +72,14 @@ const LoginForm = () => {
         }
     };
 
+    // Toggle selection of a preference ID in the preferences array
     const togglePreference = (id: number) => {
         setPreferences((prev) =>
             prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
         );
     };
 
+    // Handle successful Google login: parse token, update form fields and Google user state
     const handleGoogleSuccess = async (credential: string) => {
         const userData = parseJwt(credential);
         if (!userData) {

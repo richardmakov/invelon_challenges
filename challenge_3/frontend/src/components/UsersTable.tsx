@@ -3,14 +3,17 @@ import { useEffect } from "react";
 import { useUserStore } from "../services/userStore";
 
 const UsersTable = () => {
+    // Get fetchUsers action from the store to load users
     const fetchUsers = useUserStore((state) => state.fetchUsers);
+    // Get current list of users from the store
     const users = useUserStore((state) => state.users);
+    // Get setter function to update the selected user in the store
     const setSelectedUser = useUserStore((state) => state.setSelectedUser);
 
+    // On component mount, fetch the list of users
     useEffect(() => {
         fetchUsers();
     }, [fetchUsers]);
-
 
     return (
         <div className="p-3 p-sm-4 bg-light rounded shadow-sm w-100 d-flex flex-column h-100 gap-1">

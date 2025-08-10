@@ -1,3 +1,5 @@
+
+// Component to display a restriction message when the device is in an unsupported orientation
 export default function BlockMobileTablet() {
     return (
         <div className="block-visible-desktop-mobile-portrait">

@@ -1,8 +1,8 @@
-// src/store/userStore.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { API_URL } from '../utils/ApiUrl';
 
+// User interface representing a user entity from the backend
 export interface User {
   id: number;
   name: string;
@@ -11,11 +11,13 @@ export interface User {
   preferences: { name: string }[];
 }
 
+// Preference interface representing individual user preference options
 export interface Preference {
   id: number;
   name: string;
 }
 
+// Zustand store interface defining all state variables and actions
 interface UserStore {
   users: User[];
   preferences: Preference[];
@@ -29,6 +31,7 @@ interface UserStore {
   clearError: () => void;
 }
 
+// Create the Zustand store with persistence to localStorage under 'user-storage'
 export const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
@@ -36,8 +39,10 @@ export const useUserStore = create<UserStore>()(
       preferences: [],
       error: null,
 
+      // Clear any error message
       clearError: () => set({ error: null }),
 
+      // Add a user by sending POST request to API
       addUser: async (userData) => {
         try {
           const response = await fetch(`${API_URL}/api/post_user/`, {
@@ -64,6 +69,7 @@ export const useUserStore = create<UserStore>()(
         }
       },
 
+      // Fetch all users from the backend API and update state
       fetchUsers: async () => {
         try {
           const response = await fetch(`${API_URL}/api/get_users/`);
@@ -74,6 +80,7 @@ export const useUserStore = create<UserStore>()(
         }
       },
 
+      // Fetch all preferences from backend API and update state
       fetchPreferences: async () => {
         try {
           const response = await fetch(`${API_URL}/api/get_preferences/`);
@@ -89,7 +96,7 @@ export const useUserStore = create<UserStore>()(
       setSelectedUser: (user) => set({ selectedUser: user }),
     }),
     {
-      name: 'user-storage',
+      name: 'user-storage', // Name for localStorage persistence key
     }
   )
 );

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './ClockSocket.css';
 
 const ClockSocket = () => {
+    // State to hold the current time received from the WebSocket
     const [time, setTime] = useState('--:--:--');
 
     useEffect(() => {
@@ -29,6 +30,7 @@ const ClockSocket = () => {
         };
     }, []);
 
+    // Render the current time
     return (
         <div className="top-0 start-0 fw-bold bg-dark text-white p-2 rounded shadow-sm websocket">
             {time}
